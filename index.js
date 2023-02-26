@@ -54,10 +54,13 @@ const getChatGPTResponse = async(prompt) => {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
   };
-  
   const method = 'POST';
   const body = JSON.stringify({ ...remainingConfigs, prompt });
   const request = await fetch(url, { headers, method, body });
   const response = await request.json();
-  return response?.choices[0]?.text?.trim();
+  if (response?.choices[0]?.text) {
+    return response?.choices[0]?.text?.trim();
+  }
+  console.log({ type: 'error', response });
+  return 'Sorry AI backend is not responding, please try again later'
 }
