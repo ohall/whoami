@@ -1,0 +1,32 @@
+{
+  "name": "whoami",
+  "version": "1.0.0",
+  "description": "A personal site about me",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --watch . -e js,ejs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ohall/whoami.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Oakley Hall",
+    "email": "oakley349@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ohall/whoami/issues"
+  },
+  "homepage": "https://github.com/ohall/whoami#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
