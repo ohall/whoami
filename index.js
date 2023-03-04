@@ -16,6 +16,10 @@ let appState = {
   prompt: ''
 }
 
+app.get('/health', async (req, res) => {
+  res.send('OK');
+});
+
 app.get('/', async (req, res) => {
   appState.page = 'home';
   console.log( 'home' );
