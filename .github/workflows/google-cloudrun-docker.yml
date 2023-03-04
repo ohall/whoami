@@ -15,7 +15,7 @@ jobs:
 
       - uses: google-github-actions/auth@v1
         with:
-          service_account: github-actions@whoami-379611.iam.gserviceaccount.com
+          service_account: cloud-run-admin-service@whoami-379611.iam.gserviceaccount.com
           credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
 
       - id: deploy
