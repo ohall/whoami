@@ -1,9 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fullPrompt = require('./lib/prompt');
 const app = express();
 // used for parsing input from html
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
+
 app.set('view engine', 'ejs'); // set the view engine to use EJS templating
 
 let appState = {
@@ -29,7 +32,7 @@ app.post('/prompt', async (req, res) => {
   if (!appState.awaiting && appState.chatGPTResponse.length === 0) {
     res.render('index', appState);
     appState.awaiting = true;
-    appState.chatGPTResponse = await getChatGPTResponse(appState.prompt)
+    appState.chatGPTResponse = await getChatGPTResponse(fullPrompt(appState.prompt));
     appState.awaiting = false;
   } else if (appState.chatGPTResponse.length > 0) {
     console.log( 'redirect' );
@@ -39,6 +42,7 @@ app.post('/prompt', async (req, res) => {
 
 app.listen(3000, () => {
   console.log('Server listening on port 3000');
+  console.log( process.env.WHOAMI_PROMPT );
 });
 
 const getChatGPTResponse = async(prompt) => {

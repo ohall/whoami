@@ -2,64 +2,7 @@
 <html>
   <head>
     <title>Learn About Oakley</title>
-    <style>
-      body {
-        background-color: #eef5f9;
-      }
-      .container {
-        margin: 0 auto;
-        max-width: 800px;
-        padding: 50px;
-        text-align: center;
-      }
-      h1 {
-        font-size: 4rem;
-        margin-bottom: 20px;
-        color: #1c3648;
-      }
-      input[type="text"] {
-        border-radius: 20px;
-        border: none;
-        padding: 15px;
-        width: 60%;
-        margin-top: 20px;
-        font-size: 1.2rem;
-        color: #1c3648;
-      }
-      input[type="submit"] {
-        background-color: #0e8d8d;
-        border-radius: 20px;
-        border: none;
-        color: #fff;
-        font-size: 1.2rem;
-        padding: 15px 30px;
-        margin-top: 20px;
-        cursor: pointer;
-      }
-      input[type="submit"]:hover {
-        background-color: #0c7070;
-      }
-      #loading-container {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-color: #fff;
-          padding: 20px;
-      }
-      #loading-container::after {
-          content: "";
-          display: inline-block;
-          animation: ellipsis 1s infinite;
-      }
-      @keyframes ellipsis {
-          from {
-              content: ".";
-          }
-          to {
-              content: "...";
-          }
-      }
-    </style>
+    <link href="/style.css" rel="stylesheet" type="text/css">
     <script>
         const reload = () => location.reload();
         let interval
