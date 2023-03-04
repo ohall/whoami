@@ -4,9 +4,8 @@ on:
       - main
 
 jobs:
-  job_id:
-    # ...
-
+  deploy_google:
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
