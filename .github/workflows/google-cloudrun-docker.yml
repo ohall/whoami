@@ -9,6 +9,8 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      IMAGE_NAME: gcr.io/whoami/whoami-node
 
     steps:
       - name: Configure Docker
