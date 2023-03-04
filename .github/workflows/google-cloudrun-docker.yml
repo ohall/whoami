@@ -10,7 +10,7 @@ jobs:
       contents: read
       id-token: write
     env:
-      IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami/whoami-node
+      IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami
 
     steps:
       - name: Configure Docker
