@@ -4,7 +4,8 @@
   "description": "A personal site about me",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js --watch . -e js,ejs",
+    "start": "node index.js",
+    "dev": "nodemon index.js --watch . -e js,ejs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
