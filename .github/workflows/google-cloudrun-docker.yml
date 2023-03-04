@@ -21,7 +21,7 @@ jobs:
       - id: deploy
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          project_id: whoami
+          project_id: whoami-379611
           service: whoami-service
           image: gcr.io/whoami/whoami-node:latest
 
