@@ -19,8 +19,11 @@ jobs:
           service_account: gc-run-service@whoami-379611.iam.gserviceaccount.com
           credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
 
-      - name: Configure Docker
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      - name: Configure Registry
+        run: gcloud auth configure-docker $IMAGE_NAME
+        with:
+          service_account: gc-run-service@whoami-379611.iam.gserviceaccount.com
+          credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
 
       - name: Checkout repository
         uses: actions/checkout@v3
