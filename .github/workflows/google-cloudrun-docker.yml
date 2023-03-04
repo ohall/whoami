@@ -10,7 +10,7 @@ jobs:
       contents: read
       id-token: write
     env:
-      IMAGE_NAME: whoami-node
+      IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami
 
     steps:
       - name: Authenticate Google User
@@ -36,7 +36,7 @@ jobs:
         with:
           project_id: whoami-379611
           service: whoami-service
-          image: gcr.io/whoami/whoami-node:latest
+          image: $IMAGE_NAME:latest
 
 
 #jobs:
