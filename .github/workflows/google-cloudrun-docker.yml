@@ -4,26 +4,49 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  job_id:
+    # ...
+
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
-      # Checkout the code
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      # Authenticate with Google Cloud using the service account key
-      - name: Authenticate with Google Cloud
-        uses: ohall/whoami@main
+      - uses: google-github-actions/auth@v1
         with:
+          service_account: github-actions@whoami-379611.iam.gserviceaccount.com
           service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
-          project_id: whoami
 
-      # Deploy the app to Cloud Run
-      - name: Deploy to Cloud Run
-        uses: ohall/whoami@main
+      - id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
         with:
-          service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
-          project_id: whoami
-          region: northamerica-northeast1
-          image: gcr.io/whoami/<IMAGE_NAME>:latest
           service: whoami-service
+          image: gcr.io/whoami/whoami-node:latest
+
+
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
+#    steps:
+#      # Checkout the code
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      # Authenticate with Google Cloud using the service account key
+#      - name: Authenticate with Google Cloud
+#        uses: ohall/whoami@main
+#        with:
+#          service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
+#          project_id: whoami
+#
+#      # Deploy the app to Cloud Run
+#      - name: Deploy to Cloud Run
+#        uses: ohall/whoami@main
+#        with:
+#          service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
+#          project_id: whoami
+#          region: northamerica-northeast1
+#          image: gcr.io/whoami/whoami-node:latest
+#          service: whoami-service
