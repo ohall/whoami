@@ -4,7 +4,7 @@ on:
       - main
 
 jobs:
-  deploy_google:
+  google_cloud_run_build_deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -13,8 +13,14 @@ jobs:
       IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami
 
     steps:
+      - name: Authenticate Google User
+        uses: google-github-actions/auth@v1
+        with:
+          service_account: gc-run-service@whoami-379611.iam.gserviceaccount.com
+          credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
+
       - name: Configure Docker
-        run: gcloud auth configure-docker --quiet
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,12 +30,6 @@ jobs:
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME
-
-      - name: Authenticate Google User
-        uses: google-github-actions/auth@v1
-        with:
-          service_account: gc-run-service@whoami-379611.iam.gserviceaccount.com
-          credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
 
       - name: Google Cloud Run Deployment
         uses: google-github-actions/deploy-cloudrun@v1
