@@ -52,7 +52,7 @@ app.listen(3000, () => {
   }});
 });
 
-const log = ({type, content}) => console.log({type, content});
+const log = ({type, content}) => console.log(JSON.stringify({type, content}));
 
 const getChatGPTResponse = async(prompt) => {
   if (!apiKey) return errMsg
