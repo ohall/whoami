@@ -42,6 +42,6 @@ jobs:
       - name: Google Cloud Run Deployment
         uses: google-github-actions/deploy-cloudrun@v1
         with:
-          project_id: $GOOGLE_CLOUD_PROJECT
+          project_id: whoami-379611
           service: whoami-service
-          image: $IMAGE_NAME:latest
+          image: us-central1-docker.pkg.dev/whoami-379611/whoami/whoami-node:latest
