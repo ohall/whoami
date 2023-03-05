@@ -10,7 +10,11 @@ jobs:
       contents: read
       id-token: write
     env:
-      IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami
+      LOCATION: us-central1
+      PROJECT_ID: whoami-379611
+      REPO: whoami
+      IMAGE: whoami-node
+      IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami/whoami-node
 
     steps:
       - name: Authenticate Google User
@@ -19,14 +23,14 @@ jobs:
           service_account: gc-run-service@whoami-379611.iam.gserviceaccount.com
           credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
 
-      - name: Configure Registry
-        run: gcloud auth configure-docker $IMAGE_NAME
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Build Docker image
         run: docker build . -t $IMAGE_NAME
+
+      - name: Docker Auth
+        run: echo ${{ secrets.GCLOUD_SA_KEY }} | docker login -u _json_key --password-stdin https://${LOCATION}-docker.pkg.dev
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME
@@ -37,29 +41,3 @@ jobs:
           project_id: whoami-379611
           service: whoami-service
           image: $IMAGE_NAME:latest
-
-
-#jobs:
-#  deploy:
-#    runs-on: ubuntu-latest
-#    steps:
-#      # Checkout the code
-#      - name: Checkout code
-#        uses: actions/checkout@v2
-#
-#      # Authenticate with Google Cloud using the service account key
-#      - name: Authenticate with Google Cloud
-#        uses: ohall/whoami@main
-#        with:
-#          service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
-#          project_id: whoami
-#
-#      # Deploy the app to Cloud Run
-#      - name: Deploy to Cloud Run
-#        uses: ohall/whoami@main
-#        with:
-#          service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
-#          project_id: whoami
-#          region: northamerica-northeast1
-#          image: gcr.io/whoami/whoami-node:latest
-#          service: whoami-service
