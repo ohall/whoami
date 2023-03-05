@@ -29,8 +29,12 @@ jobs:
       - name: Build Docker image
         run: docker build . -t $IMAGE_NAME
 
-      - name: Docker Auth
-        run: docker login -u _json_key -p ${{ secrets.GCLOUD_SA_KEY }} https://${LOCATION}-docker.pkg.dev
+      - name: Login to GAR
+        uses: docker/login-action@v2
+        with:
+          registry: ${LOCATION}-docker.pkg.dev
+          username: _json_key
+          password: ${{ secrets.GCLOUD_SA_KEY }}
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME
