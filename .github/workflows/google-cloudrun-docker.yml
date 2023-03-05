@@ -17,27 +17,28 @@ jobs:
       IMAGE_NAME: us-central1-docker.pkg.dev/whoami-379611/whoami/whoami-node
 
     steps:
+      -
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+#      - name: Build Docker image
+#        run: docker build . -t $IMAGE_NAME
+#
+#      - name: Login to GAR
+#        uses: docker/login-action@v2
+#        with:
+#          registry: us-central1-docker.pkg.dev
+#          username: _json_key
+#          password: ${{ secrets.GCLOUD_SA_KEY }}
+#
+#      - name: Push Docker image
+#        run: docker push $IMAGE_NAME
+
       - name: Authenticate Google User
         uses: google-github-actions/auth@v1
         with:
           service_account: gc-run-service@whoami-379611.iam.gserviceaccount.com
           credentials_json: ${{ secrets.GCLOUD_SA_KEY }}
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build Docker image
-        run: docker build . -t $IMAGE_NAME
-
-      - name: Login to GAR
-        uses: docker/login-action@v2
-        with:
-          registry: us-central1-docker.pkg.dev
-          username: _json_key
-          password: ${{ secrets.GCLOUD_SA_KEY }}
-
-      - name: Push Docker image
-        run: docker push $IMAGE_NAME
 
       - name: Google Cloud Run Deployment
         uses: google-github-actions/deploy-cloudrun@v1
