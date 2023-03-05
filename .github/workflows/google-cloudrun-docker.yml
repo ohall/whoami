@@ -30,7 +30,7 @@ jobs:
         run: docker build . -t $IMAGE_NAME
 
       - name: Docker Auth
-        run: echo ${{ secrets.GCLOUD_SA_KEY }} | docker login -u _json_key --password-stdin https://${LOCATION}-docker.pkg.dev
+        run: docker login -u _json_key -p ${{ secrets.GCLOUD_SA_KEY }} https://${LOCATION}-docker.pkg.dev
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME
