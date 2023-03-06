@@ -1,56 +1,56 @@
+html {
+    height: 100%;
+}
+
 body {
-    background-color: #eef5f9;
+    background: linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147));
+    font-family: 'Open Sans', sans-serif;
 }
+
 .container {
-    margin: 0 auto;
-    max-width: 800px;
-    padding: 50px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
-h1 {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    color: #1c3648;
-}
-input[type="text"] {
-    border-radius: 20px;
-    border: none;
-    padding: 15px;
-    width: 60%;
-    margin-top: 20px;
-    font-size: 1.2rem;
-    color: #1c3648;
-}
-input[type="submit"] {
-    background-color: #0e8d8d;
-    border-radius: 20px;
-    border: none;
-    color: #fff;
-    font-size: 1.2rem;
-    padding: 15px 30px;
-    margin-top: 20px;
-    cursor: pointer;
-}
-input[type="submit"]:hover {
-    background-color: #0c7070;
-}
-#loading-container {
+
+.search-bar {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fff;
     padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 25%;
+    width: 75%;
+    left: 10%;
+    right: 0;
 }
-#loading-container::after {
-    content: "";
-    display: inline-block;
-    animation: ellipsis 1s infinite;
+
+.search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    width: 70%;
+    margin-right: 10px;
 }
-@keyframes ellipsis {
-    from {
-        content: ".";
-    }
-    to {
-        content: "...";
-    }
+
+.search-bar button {
+    background-color: rgb(51, 139, 147);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.search-bar button:hover {
+    background-color: rgb(182, 244, 146);
+    color: rgb(51, 139, 147);
 }
