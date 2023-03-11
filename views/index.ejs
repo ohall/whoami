@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Oakley</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <title>Oakley</title>
     <link href="/style.css" rel="stylesheet" type="text/css">
-    <script>
-        const reload = () => location.reload();
-        let interval
-        console.log( location.pathname );
-        if (location.pathname === '/prompt') {
-            interval = setInterval(reload, 500);
-        } else {
-          if (interval) clearInterval(interval);
-        }
-    </script>
+    <script src="/page.js"></script>
   </head>
   <body>
-    <form action="/prompt" method="post" class="search-bar">
-        <label for="prompt">Ask me about Oakley</label>
-        <input type="text" id="prompt" name="prompt" value="<%= prompt %>">
-        <button id="submit" type="submit">Submit</button>
-    </form>
+    <div class=prompt-area>
+        <h3>Ask me about Oakley</h3>
+        <form name="form" action="/prompt" method="post" class="search-bar">
+            <input type="text" id="prompt" name="prompt" value="<%= prompt %>">
+            <button type="submit" id="submit" disabled>Submit</button>
+        </form>
+    </div>
     <div class=response>
         <% if ( page === 'prompt') { %>
             <div id="loading-container">
