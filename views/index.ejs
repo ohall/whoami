@@ -7,21 +7,23 @@
     <script src="/page.js"></script>
   </head>
   <body>
-    <div class=prompt-area>
-        <h3>Ask me about Oakley</h3>
-        <form name="form" action="/prompt" method="post" class="search-bar">
-            <input type="text" id="prompt" name="prompt" value="<%= prompt %>">
-            <button type="submit" id="submit" disabled>Submit</button>
-        </form>
-    </div>
-    <div class=response>
-        <% if ( page === 'prompt') { %>
-            <div id="loading-container">
-                <p>Loading...</p>
-            </div>
-        <% } else { %>
-            <div id="results"><%= chatGPTResponse %></div>
-        <% } %>
+    <div class=outer>
+        <div class="intro">Ask me about Oakley</div>
+        <div class="prompt-area container">
+            <form name="form" action="/prompt" method="post" class="search-bar">
+                <input type="text" id="prompt" name="prompt" value="<%= prompt %>">
+                <button type="submit" id="submit" >Submit</button>
+            </form>
+        </div>
+        <div id="results" class="container result">
+            <% if ( page === 'prompt') { %>
+                <div name="loading" id="loading-container">
+                    <p>Loading...</p>
+                </div>
+            <% } else { %>
+                <div id="resultsText"><%= chatGPTResponse %></div>
+            <% } %>
+        </div>
     </div>
   </body>
 </html>

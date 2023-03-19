@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const appConfig = require('./config/config.js');
 const fullPrompt = require('./lib/prompt');
 const app = express();
-const apiKey = process.env.OPENAI_API_KEY;
 const whoamiPrompt = process.env.WHOAMI_PROMPT;
-const errMsg = 'Sorry AI backend is not responding, please try again later.'
 
 // used for parsing input from html
 app.use(bodyParser.urlencoded({extended : true}));
@@ -55,31 +54,23 @@ app.listen(3000, () => {
 const log = ({type, content}) => console.log(JSON.stringify({type, content}));
 
 const getChatGPTResponse = async(prompt) => {
-  if (!apiKey) return errMsg
+  const { errMsg, timeoutMsg, missingKey } = appConfig;
+  if (!process.env.OPENAI_API_KEY) return missingKey
 
-  const config = {
-      url: "https://api.openai.com/v1/completions",
-      prompt,
-      model: "text-davinci-003",
-      max_tokens: 2048,
-      temperature: 0  
-  };
+  const options = appConfig.getOpenAIOpts(prompt);
+  let request, response = {};
+  try {
+    request = await fetch(options.url, options);
+    response = await request.json();
 
-  const { url, ...remainingConfigs } = config;
+    if (response?.choices[0]?.text) {
+      return response?.choices[0]?.text?.trim();
+    }
+    log({type: 'error', content: response});
+    return errMsg
 
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${apiKey}`
-  };
-
-  const body = JSON.stringify({ ...remainingConfigs, prompt });
-  const request = await fetch(url, { headers, method:'POST', body });
-  const response = await request.json();
-
-  if (response?.choices[0]?.text) {
-    return response?.choices[0]?.text?.trim();
+  } catch (err) {
+    log({type: 'error', err, content: response});
+    return err.name === 'TimeoutError' ? timeoutMsg : errMsg;
   }
-
-  log({type: 'error', content: response});
-  return errMsg
 }
