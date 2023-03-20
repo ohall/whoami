@@ -28,9 +28,11 @@ body {
     display: inline-block;
     transition:width 1s ease-in-out;
     color: #2C3531;
+    visibility: hidden;
 }
 
 .intro {
+    margin: 10px;
 }
 
 .prompt-area {
@@ -65,6 +67,7 @@ body {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    visibility: hidden;
 }
 
 button:disabled,

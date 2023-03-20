@@ -27,6 +27,7 @@ app.get('/', async (req, res) => {
   log({type:'state', content:appState});
   res.render('index', appState);
   appState.chatGPTResponse = '';
+  appState.prompt = '';
 });
 
 app.post('/prompt', async (req, res) => {
@@ -38,6 +39,7 @@ app.post('/prompt', async (req, res) => {
     appState.awaiting = true;
     appState.chatGPTResponse = await getChatGPTResponse(fullPrompt(appState.prompt, whoamiPrompt));
     appState.awaiting = false;
+    appState.prompt = '';
   } else if (appState.chatGPTResponse.length > 0) {
     res.redirect('/')
   }
